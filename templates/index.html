@@ -4,23 +4,39 @@
     <meta charset="UTF-8">
     <title>Excel Replacer</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 </head>
 <body>
-    <h1>Excel Replacer</h1>
-    <form action="/upload" method="post" enctype="multipart/form-data">
-        <input type="file" name="file">
-        <input type="number" name="threshold" placeholder="Enter threshold">
-        <input type="submit" value="Upload">
-    </form>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <h1 class="text-center mt-5">Excel Replacer</h1>
+                <form action="/upload" method="post" enctype="multipart/form-data" class="mt-5">
+                    <div class="form-group">
+                        <input type="file" name="file" class="form-control-file">
+                    </div>
+                    <div class="form-group">
+                        <input type="number" name="threshold" placeholder="Enter threshold" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="Upload" class="btn btn-success btn-block">
+                    </div>
+                </form>
 
-    {% with messages = get_flashed_messages() %}
-        {% if messages %}
-            <ul class="flashes">
-            {% for message in messages %}
-                <li>{{ message }}</li>
-            {% endfor %}
-            </ul>
-        {% endif %}
-    {% endwith %}
+                {% with messages = get_flashed_messages() %}
+                    {% if messages %}
+                        <ul class="flashes list-group mt-3">
+                        {% for message in messages %}
+                            <li class="list-group-item list-group-item-danger">{{ message }}</li>
+                        {% endfor %}
+                        </ul>
+                    {% endif %}
+                {% endwith %}
+            </div>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 </body>
 </html>
