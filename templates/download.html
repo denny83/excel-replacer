@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Download File</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <h1>Download File</h1>
+    <p>{{ get_flashed_messages()[0] }}</p>
+    <button id="download-button">Download and Save File</button>
+
+    <script>
+        $(document).ready(function() {
+            $('#download-button').on('click', function() {
+                var filePath = "{{ file_path }}";
+                var downloadUrl = "{{ url_for('download_file', file_path=file_path) }}";
+                var deleteUrl = "{{ url_for('delete_file', file_path=file_path) }}";
+
+                // Инициализируем загрузку файла
+                window.location.href = downloadUrl;
+
+                // После загрузки файла удаляем его с сервера
+                $.ajax({
+                    url: deleteUrl,
+                    type: 'DELETE',
+                    success: function(response) {
+                        if (response.success) {
+                            alert('File deleted successfully');
+                        } else {
+                            alert('Error deleting file: ' + response.error);
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        alert('Error deleting file: ' + error);
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
